@@ -1,11 +1,13 @@
 <?php
 
+use DBA\AccessGroupAgent;
 use DBA\Agent;
 use DBA\Assignment;
 use DBA\Chunk;
 use DBA\CrackerBinary;
 use DBA\File;
 use DBA\FileTask;
+use DBA\ContainFilter;
 use DBA\JoinFilter;
 use DBA\OrderFilter;
 use DBA\Preprocessor;
@@ -178,9 +180,15 @@ if (isset($_GET['id'])) {
   UI::add('agentsBench', $agentsBench);
   UI::add('agentsSpeed', $agentsSpeed);
   
+  $accessGroups = AccessUtils::getAccessGroupsOfUser(Login::getInstance()->getUser());
+  $accessGroupIds = Util::arrayOfIds($accessGroups);
+  
+  $jF = new JoinFilter(Factory::getAccessGroupAgentFactory(), AccessGroupAgent::AGENT_ID, Agent::AGENT_ID);
+  $cF = new ContainFilter(AccessGroupAgent::ACCESS_GROUP_ID, $accessGroupIds);
+  $joinedAgents = Factory::getAgentFactory()->filter([Factory::JOIN => $jF, Factory::FILTER => $cF]);
+  
   $assignAgents = array();
-  $allAgents = Factory::getAgentFactory()->filter([]);
-  foreach ($allAgents as $agent) {
+  foreach ($joinedAgents[Factory::getAgentFactory()->getModelName()] as $agent) {
     if (!in_array($agent->getId(), $assignedAgents)) {
       $assignAgents[] = $agent;
     }
