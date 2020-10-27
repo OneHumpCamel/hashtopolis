@@ -32,28 +32,29 @@ class DProxyTypes {
 // used config values
 class DConfig {
   // Section: Cracking/Tasks
-  const BENCHMARK_TIME         = "benchtime";
-  const CHUNK_DURATION         = "chunktime";
-  const CHUNK_TIMEOUT          = "chunktimeout";
-  const AGENT_TIMEOUT          = "agenttimeout";
-  const FIELD_SEPARATOR        = "fieldseparator";
-  const HASHLIST_ALIAS         = "hashlistAlias";
-  const STATUS_TIMER           = "statustimer";
-  const BLACKLIST_CHARS        = "blacklistChars";
-  const DISP_TOLERANCE         = "disptolerance";
-  const DEFAULT_BENCH          = "defaultBenchmark";
-  const RULE_SPLIT_SMALL_TASKS = "ruleSplitSmallTasks";
-  const RULE_SPLIT_ALWAYS      = "ruleSplitAlways";
-  const RULE_SPLIT_DISABLE     = "ruleSplitDisable";
-  const AGENT_DATA_LIFETIME    = "agentDataLifetime";
-  const DISABLE_TRIMMING       = "disableTrimming";
-  const PRIORITY_0_START       = "priority0Start";
-  const HASHCAT_BRAIN_ENABLE   = "hashcatBrainEnable";
-  const HASHCAT_BRAIN_HOST     = "hashcatBrainHost";
-  const HASHCAT_BRAIN_PORT     = "hashcatBrainPort";
-  const HASHCAT_BRAIN_PASS     = "hashcatBrainPass";
-  const HASHLIST_IMPORT_CHECK  = "hashlistImportCheck";
-  const HC_ERROR_IGNORE        = "hcErrorIgnore";
+  const BENCHMARK_TIME            = "benchtime";
+  const CHUNK_DURATION            = "chunktime";
+  const CHUNK_TIMEOUT             = "chunktimeout";
+  const AGENT_TIMEOUT             = "agenttimeout";
+  const FIELD_SEPARATOR           = "fieldseparator";
+  const HASHLIST_ALIAS            = "hashlistAlias";
+  const STATUS_TIMER              = "statustimer";
+  const BLACKLIST_CHARS           = "blacklistChars";
+  const DISP_TOLERANCE            = "disptolerance";
+  const DEFAULT_BENCH             = "defaultBenchmark";
+  const RULE_SPLIT_SMALL_TASKS    = "ruleSplitSmallTasks";
+  const RULE_SPLIT_ALWAYS         = "ruleSplitAlways";
+  const RULE_SPLIT_DISABLE        = "ruleSplitDisable";
+  const AGENT_DATA_LIFETIME       = "agentDataLifetime";
+  const DISABLE_TRIMMING          = "disableTrimming";
+  const PRIORITY_0_START          = "priority0Start";
+  const HASHCAT_BRAIN_ENABLE      = "hashcatBrainEnable";
+  const HASHCAT_BRAIN_HOST        = "hashcatBrainHost";
+  const HASHCAT_BRAIN_PORT        = "hashcatBrainPort";
+  const HASHCAT_BRAIN_PASS        = "hashcatBrainPass";
+  const HASHLIST_IMPORT_CHECK     = "hashlistImportCheck";
+  const HC_ERROR_IGNORE           = "hcErrorIgnore";
+  const DEFAULT_ALWAYS_ACCESSIBLE = "defaultAlwaysAccessible";
   
   // Section: Yubikey
   const YUBIKEY_ID  = "yubikey_id";
@@ -272,6 +273,8 @@ class DConfig {
         return DConfigType::TICKBOX;
       case DConfig::HC_ERROR_IGNORE:
         return DConfigType::STRING_INPUT;
+      case DConfig::DEFAULT_ALWAYS_ACCESSIBLE:
+        return DConfigType::TICKBOX;
     }
     return DConfigType::STRING_INPUT;
   }
@@ -406,6 +409,8 @@ class DConfig {
         return "Also send 'isComplete' for each task on the User API when listing all tasks (might affect performance)";
       case DConfig::HC_ERROR_IGNORE:
         return "Ignore error messages from crackers which contain given strings (multiple values separated by comma)";
+      case DConfig::DEFAULT_ALWAYS_ACCESSIBLE:
+        return "Agents always have access to files belonging to the default access group";
     }
     return $config;
   }
