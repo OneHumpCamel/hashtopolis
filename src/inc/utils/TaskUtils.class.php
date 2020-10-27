@@ -857,6 +857,8 @@ class TaskUtils {
     /** @var $accessGroupAgent AccessGroup[] */
     $accessGroupAgent = $joined[Factory::getAccessGroupFactory()->getModelName()];
     $accessGroups = Util::arrayOfIds($accessGroupAgent);
+    // add the default group id (always 1) to the groups every agent has access to
+    $accessGroup[] = 1;
     
     // get all TaskWrappers which we have access to
     $qF1 = new ContainFilter(TaskWrapper::ACCESS_GROUP_ID, $accessGroups);
