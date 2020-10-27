@@ -857,8 +857,12 @@ class TaskUtils {
     /** @var $accessGroupAgent AccessGroup[] */
     $accessGroupAgent = $joined[Factory::getAccessGroupFactory()->getModelName()];
     $accessGroups = Util::arrayOfIds($accessGroupAgent);
-    // add the default group id (always 1) to the groups every agent has access to
-    $accessGroup[] = 1;
+    // if setting defaultAlwaysAccessible is set, add the default group id (always 1) to the list of accessible groups
+    if (SConfig::getInstance()->getVal(DConfig::DEFAULT_ALWAYS_ACCESSIBLE)) {
+      DServerLog::log(DServerLog::TRACE, "Adding Default Group to list of groups accessible to the agent...");
+      $accessGroups[] = 1;
+    }
+    DServerLog::log(DServerLog::TRACE, "Access groups", $accessGroups);
     
     // get all TaskWrappers which we have access to
     $qF1 = new ContainFilter(TaskWrapper::ACCESS_GROUP_ID, $accessGroups);

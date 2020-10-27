@@ -58,8 +58,10 @@ if (!Login::getInstance()->isLoggedin()) {
       die("No access!");
     }
     $accessGroupIds = Util::arrayOfIds(AccessUtils::getAccessGroupsOfAgent($agent));
-    // add the default group id (always 1) to the groups every agent has access to
-    $accessGroupIds[] = 1;
+    // if setting defaultAlwaysAccessible is set, add the default group id (always 1) to the list of accessible groups
+    if (SConfig::getInstance()->getVal(DConfig::DEFAULT_ALWAYS_ACCESSIBLE)) {
+      $accessGroupIds[] = 1;
+    }
   }
 }
 else if (!AccessControl::getInstance()->hasPermission(DAccessControl::VIEW_FILE_ACCESS)) {
