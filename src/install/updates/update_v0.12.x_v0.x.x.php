@@ -82,3 +82,8 @@ if (!isset($PRESENT["v0.12.x_agentBinariesUpdateTrack"])) {
   $EXECUTED["v0.12.x_agentBinariesUpdateTrack"] = true;
 }
 
+if (!isset($PRESENT["v0.12.x_conf1"])) {
+  $config = new Config(null, 1, DConfig::DEFAULT_ALWAYS_ACCESSIBLE, '0');
+  Factory::getConfigFactory()->save($config);
+  $EXECUTED["v0.12.x_conf1"] = true;
+}
