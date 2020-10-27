@@ -1,5 +1,6 @@
 <?php /** @noinspection SqlNoDataSourceInspection */
 
+use DBA\Config;
 use DBA\Factory;
 use DBA\HashType;
 
